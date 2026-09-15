@@ -1,0 +1,37 @@
+name: Student Result Portal CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Validate Project Files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          test -f README.md
+          echo "All required project files are present."
+
+      - name: Build Application Package
+        run: |
+          mkdir build
+          cp index.html style.css script.js README.md build/
+          echo "Student Result Portal build completed successfully."
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-result-portal
+          path: build/
