@@ -24,6 +24,12 @@ jobs:
           test -f README.md
           echo "All required project files are present."
 
+      - name: Run Application Tests
+        run: |
+          grep -q "Student Result Portal" index.html
+          grep -q "calculateResult" script.js
+          echo "Application tests passed successfully."
+
       - name: Build Application Package
         run: |
           mkdir build
